@@ -1,0 +1,30 @@
+{
+    "package": "native/rust-std-bin@1.94.0-aarch64-linux-android",
+    "version": "1.94.0",
+    "type": "native",
+    "download": [
+        {
+            "kind": "blob",
+            "path": "./rust-std-aarch64-linux-android.tar.gz",
+            "sha256": "0aad8d116086f7323c48e5ee7ce11d2c218a83c93be267ddd6d11702703dbd9d",
+            "url": "https://static.rust-lang.org/dist/rust-std-1.94.0-aarch64-linux-android.tar.gz"
+        }
+    ],
+    "dependencies": [
+        "*:*:native/7zip",
+        "*:*:native/rust-bin@1.94.0"
+    ],
+    "build": {
+        "env": [
+            "*:*:RUST_VERSION=1.94.0",
+            "*:*:RUST_TARGET_TRIPLET=aarch64-linux-android"
+        ],
+        "steps": [
+            "*:*:7zz x ./rust-std-aarch64-linux-android.tar.gz",
+            "*:*:mkdir build",
+            "*:*:cd build && 7zz x ../rust-std-aarch64-linux-android.tar",
+            "*:*:mkdir -p $STAGING_DIR$NATIVEPREFIX",
+            "*:*:cd build/rust-std-${RUST_VERSION}-${RUST_TARGET_TRIPLET} && ./install.sh --destdir=$STAGING_DIR --prefix=$NATIVEPREFIX --components=rust-std-${RUST_TARGET_TRIPLET} --disable-ldconfig"
+        ]
+    }
+}
