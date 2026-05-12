@@ -1,0 +1,50 @@
+{
+    "package": "native/rust-bin@1.94.0",
+    "version": "1.94.0",
+    "type": "native",
+    "download": [
+        {
+            "kind": "blob",
+            "path": "./rust-darwin_arm64.tar.gz",
+            "sha256": "94903e93a4334d42bb6d92377a39903349c07f3709c792864bcdf7959f3c8c7d",
+            "url": "https://static.rust-lang.org/dist/rust-1.94.0-aarch64-apple-darwin.tar.gz"
+        },
+        {
+            "kind": "blob",
+            "path": "./rust-darwin_amd64.tar.gz",
+            "sha256": "97724032da92646194a802a7991f1166c4dc9f0a63f3bb01a53860e98f31d08c",
+            "url": "https://static.rust-lang.org/dist/rust-1.94.0-x86_64-apple-darwin.tar.gz"
+        },
+        {
+            "kind": "blob",
+            "path": "./rust-linux_amd64.tar.gz",
+            "sha256": "3bb1925a0a5ad2c17be731ee6e977e4a68490ab2182086db897bd28be21e965f",
+            "url": "https://static.rust-lang.org/dist/rust-1.94.0-x86_64-unknown-linux-gnu.tar.gz"
+        },
+        {
+            "kind": "blob",
+            "path": "./rust-linux_arm64.tar.gz",
+            "sha256": "a0dc5a65ab337421347533e5be11d3fab11f119683a0dbd257ef3fe968bd2d72",
+            "url": "https://static.rust-lang.org/dist/rust-1.94.0-aarch64-unknown-linux-gnu.tar.gz"
+        }
+    ],
+    "dependencies": [
+        "*:*:native/7zip"
+    ],
+    "build": {
+        "env": [
+            "*:*:RUST_VERSION=1.94.0",
+            "linux_amd64:*:RUST_HOST_TRIPLET=x86_64-unknown-linux-gnu",
+            "linux_arm64:*:RUST_HOST_TRIPLET=aarch64-unknown-linux-gnu",
+            "darwin_amd64:*:RUST_HOST_TRIPLET=x86_64-apple-darwin",
+            "darwin_arm64:*:RUST_HOST_TRIPLET=aarch64-apple-darwin"
+        ],
+        "steps": [
+            "*:*:7zz x ./rust-${BUILDER_GOOS}_${BUILDER_GOARCH}.tar.gz",
+            "*:*:mkdir build",
+            "*:*:cd build && 7zz x ../rust-${BUILDER_GOOS}_${BUILDER_GOARCH}.tar",
+            "*:*:mkdir -p $STAGING_DIR$NATIVEPREFIX",
+            "*:*:cd build/rust-${RUST_VERSION}-${RUST_HOST_TRIPLET} && ./install.sh --destdir=$STAGING_DIR --prefix=$NATIVEPREFIX --components=rustc,cargo,rust-std-${RUST_HOST_TRIPLET} --disable-ldconfig"
+        ]
+    }
+}
