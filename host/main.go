@@ -294,6 +294,7 @@ var SupportedHosts = map[string]*Host{
 			"*:*:LIBTOOL=libtool",
 			"*:*:ANDROID_NDK_HOME=$NATIVEPREFIX/",
 			"*:*:LDFLAGS=$LDFLAGS -lc -lc++abi -lm",
+			"*:*:PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig",
 		},
 	},
 	"x86_64-linux-android": {
@@ -317,7 +318,8 @@ var SupportedHosts = map[string]*Host{
 			"*:*:AS=llvm-as",
 			"*:*:LIBTOOL=libtool",
 			"*:*:ANDROID_NDK_HOME=$NATIVEPREFIX/",
-			"*:*:LDFLAGS=$LDFLAGS -lc -lc++abi -lm"},
+			"*:*:LDFLAGS=$LDFLAGS -lc -lc++abi -lm",
+			"*:*:PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"},
 	},
 	"armv7a-linux-androideabi": {
 		Triplet: "armv7a-linux-androideabi",
@@ -340,7 +342,8 @@ var SupportedHosts = map[string]*Host{
 			"*:*:AS=llvm-as",
 			"*:*:LIBTOOL=libtool",
 			"*:*:ANDROID_NDK_HOME=$NATIVEPREFIX/",
-			"*:*:LDFLAGS=$LDFLAGS -lc -lc++abi -lm"},
+			"*:*:LDFLAGS=$LDFLAGS -lc -lc++abi -lm",
+			"*:*:PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig"},
 	},
 }
 
