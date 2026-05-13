@@ -213,6 +213,7 @@ var SupportedHosts = map[string]*Host{
 			"*:*:LD=x86_64-w64-mingw32-ld",
 			"*:*:LDFLAGS=",
 			"*:*:NM=x86_64-w64-mingw32-nm",
+			"*:*:PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig",
 		},
 	},
 	"x86_64-linux-gnu": {
@@ -240,6 +241,7 @@ var SupportedHosts = map[string]*Host{
 			"*:*:LD=x86_64-linux-gnu-ld",
 			"*:*:LDFLAGS=",
 			"*:*:NM=x86_64-linux-gnu-nm",
+			"*:*:PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig",
 		},
 	},
 	"aarch64-linux-gnu": {
@@ -267,6 +269,7 @@ var SupportedHosts = map[string]*Host{
 			"*:*:LD=aarch64-linux-gnu-ld",
 			"*:*:LDFLAGS=",
 			"*:*:NM=aarch64-linux-gnu-nm",
+			"*:*:PKG_CONFIG_LIBDIR=$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig",
 		},
 	},
 	"aarch64-linux-android": {

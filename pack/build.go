@@ -44,7 +44,8 @@ func (p *Package) ExtractEnv(host *host.Host, envPath string, envNativePath stri
 	if err != nil {
 		log.Panicf("Failed to extract archive %s: %v", archive, err)
 	}
-	env := p.GetEnv(host)
+	// Use GetHostShellEnv so _source_me reflects the cross HOST, not the last extracted dep.
+	env := p.GetHostShellEnv(host)
 	newEnv := []string{}
 	for k, v := range env {
 		newEnv = append(newEnv, k+"="+v)

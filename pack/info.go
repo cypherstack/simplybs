@@ -201,3 +201,28 @@ func (p *Package) GetEnvForLogs(h *host.Host) map[string]string {
 	}
 	return env
 }
+
+// GetHostShellEnv returns a stable cross-HOST env for _source_me.
+// Unlike GetEnv, this always uses the host's configuration, not the last extracted dep.
+func (p *Package) GetHostShellEnv(h *host.Host) map[string]string {
+	getwd, err := os.Getwd()
+	crash.Handle(err)
+	home := h.GetEnvPath() + "/home/user"
+	env := map[string]string{
+		"PATH":         h.GetNativeEnvPath() + "/bin:" + utils.GetHostPath(),
+		"HOST":         h.Triplet,
+		"PREFIX":       h.GetEnvPath(),
+		"NATIVEPREFIX": h.GetNativeEnvPath(),
+		"HOME":         home,
+		"HOST_PREFIX":  h.GetEnvPath(),
+		"NUM_CORES":    strconv.Itoa(getNumCores()),
+		"PATCH_DIR":    filepath.Join(getwd, "patches"),
+	}
+	env = utils.AppendEnv(env, builder.HostBuilder.GlobalEnv, h)
+	env = utils.AppendEnv(env, []string{
+		"*:*:CC_FOR_BUILD=" + builder.HostBuilder.GetCC(),
+		"*:*:CXX_FOR_BUILD=" + builder.HostBuilder.GetCXX(),
+	}, h)
+	env = utils.AppendEnv(env, h.Env, h)
+	return env
+}
