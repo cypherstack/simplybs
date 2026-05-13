@@ -8,6 +8,7 @@
         "*:*-apple-*:native/libtapi",
         "*:*-apple-*:native/libxml2",
         "*:*-apple-*:native/osx-cross",
+        "*:*-apple-*:native/pkgconf",
         "*:*-apple-*:native/xar",
         "*:*-linux-*:native/bash",
         "*:*-linux-gnu:native/ct-tools",
