@@ -1,0 +1,30 @@
+{
+    "package": "native/rust-std-bin@1.94.0-armv7-linux-androideabi",
+    "version": "1.94.0",
+    "type": "native",
+    "download": [
+        {
+            "kind": "blob",
+            "path": "./rust-std-armv7-linux-androideabi.tar.gz",
+            "sha256": "7382145003f4aa0789d225884ff7211eaa697a9b27e7443db945ebaacf615e49",
+            "url": "https://static.rust-lang.org/dist/rust-std-1.94.0-armv7-linux-androideabi.tar.gz"
+        }
+    ],
+    "dependencies": [
+        "*:*:native/7zip",
+        "*:*:native/rust-bin@1.94.0"
+    ],
+    "build": {
+        "env": [
+            "*:*:RUST_VERSION=1.94.0",
+            "*:*:RUST_TARGET_TRIPLET=armv7-linux-androideabi"
+        ],
+        "steps": [
+            "*:*:7zz x ./rust-std-armv7-linux-androideabi.tar.gz",
+            "*:*:mkdir build",
+            "*:*:cd build && 7zz x ../rust-std-armv7-linux-androideabi.tar",
+            "*:*:mkdir -p $STAGING_DIR$NATIVEPREFIX",
+            "*:*:cd build/rust-std-${RUST_VERSION}-${RUST_TARGET_TRIPLET} && ./install.sh --destdir=$STAGING_DIR --prefix=$NATIVEPREFIX --components=rust-std-${RUST_TARGET_TRIPLET} --disable-ldconfig"
+        ]
+    }
+}
