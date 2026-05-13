@@ -1,0 +1,30 @@
+{
+    "package": "native/rust-std-bin@1.94.0-x86_64-apple-darwin",
+    "version": "1.94.0",
+    "type": "native",
+    "download": [
+        {
+            "kind": "blob",
+            "path": "./rust-std-x86_64-apple-darwin.tar.gz",
+            "sha256": "f5107737a1ce338e84425c6ff58eed3e4729235689a754f8dd345c8acc64d2de",
+            "url": "https://static.rust-lang.org/dist/rust-std-1.94.0-x86_64-apple-darwin.tar.gz"
+        }
+    ],
+    "dependencies": [
+        "*:*:native/7zip",
+        "*:*:native/rust-bin@1.94.0"
+    ],
+    "build": {
+        "env": [
+            "*:*:RUST_VERSION=1.94.0",
+            "*:*:RUST_TARGET_TRIPLET=x86_64-apple-darwin"
+        ],
+        "steps": [
+            "*:*:7zz x ./rust-std-x86_64-apple-darwin.tar.gz",
+            "*:*:mkdir build",
+            "*:*:cd build && 7zz x ../rust-std-x86_64-apple-darwin.tar",
+            "*:*:mkdir -p $STAGING_DIR$NATIVEPREFIX",
+            "*:*:cd build/rust-std-${RUST_VERSION}-${RUST_TARGET_TRIPLET} && ./install.sh --destdir=$STAGING_DIR --prefix=$NATIVEPREFIX --components=rust-std-${RUST_TARGET_TRIPLET} --disable-ldconfig"
+        ]
+    }
+}
