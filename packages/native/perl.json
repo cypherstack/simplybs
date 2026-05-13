@@ -17,7 +17,7 @@
         "steps": [
             "*:*:mkdir -p $STAGING_DIR$NATIVEPREFIX/lib $NATIVEPREFIX/lib",
             "*:*:sed -i.bak '/^#ifndef PERL_BUILD_DATE$/,/^#endif$/{/^#ifndef PERL_BUILD_DATE$/!d; s/.*/\\#define PERL_BUILD_DATE \"Jan  1 1970 00:00:01\"/;}' perl.c",
-            "*:*:./Configure -des -Dprefix=$NATIVEPREFIX -Duseithreads -Dall_static",
+            "*:*:./Configure -des -Dprefix=$NATIVEPREFIX -Duseithreads -Dall_static -Dlibs=",
             "*:*:make -j$NUM_CORES",
             "*:*:make DESTDIR=$STAGING_DIR install"
         ]
