@@ -1,0 +1,30 @@
+{
+    "package": "native/rust-std-bin@1.94.0-aarch64-linux-gnu",
+    "version": "1.94.0",
+    "type": "native",
+    "download": [
+        {
+            "kind": "blob",
+            "path": "./rust-std-aarch64-unknown-linux-gnu.tar.gz",
+            "sha256": "208bcd75dbb01ebb1e5a6a4bcb7ed2e3cf2b6ca7c50885e8430c2cc803d3561c",
+            "url": "https://static.rust-lang.org/dist/rust-std-1.94.0-aarch64-unknown-linux-gnu.tar.gz"
+        }
+    ],
+    "dependencies": [
+        "*:*:native/7zip",
+        "*:*:native/rust-bin@1.94.0"
+    ],
+    "build": {
+        "env": [
+            "*:*:RUST_VERSION=1.94.0",
+            "*:*:RUST_TARGET_TRIPLET=aarch64-unknown-linux-gnu"
+        ],
+        "steps": [
+            "*:*:7zz x ./rust-std-aarch64-unknown-linux-gnu.tar.gz",
+            "*:*:mkdir build",
+            "*:*:cd build && 7zz x ../rust-std-aarch64-unknown-linux-gnu.tar",
+            "*:*:mkdir -p $STAGING_DIR$NATIVEPREFIX",
+            "*:*:cd build/rust-std-${RUST_VERSION}-${RUST_TARGET_TRIPLET} && ./install.sh --destdir=$STAGING_DIR --prefix=$NATIVEPREFIX --components=rust-std-${RUST_TARGET_TRIPLET} --disable-ldconfig"
+        ]
+    }
+}
